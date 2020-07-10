@@ -1,0 +1,44 @@
+1. Ответить, сколько ошибок в данном запросе на выборку:
+select employee_id, last_name
+sal x 12 annual salary
+from hr.employees;
+
+Ответ:
+Ошибки 4 
+select employee_id, last_name, (salary*12) "annual salary"
+from hr.employees;
+
+2. Ответить, какие из следующих операторов можно использовать в части where запроса на выборку:
+a) >= (+)
+b) is null
+c) !=
+d) is like
+e) in between
+g) <> (+) (вроде это типо неравно !=)
+Простите если не правильно ответил тут просто не указано сколько ответов может быть в вопросе я подумал что их может быть несколько
+(я помню что есть in, between, like, но пишутся они по отдельности не как в варианте d, e так что правильными считаю только те ответы что я указал знаком (+))
+
+3. Переписать запрос
+Ответ:
+select
+   department_id, job_id, manager_id, count(*)
+from
+   hr.employees
+group by department_id, job_id, manager_id
+union all
+select department_id, null, null, count(*)
+from hr.employees
+group by department_id
+union all
+select null, job_id, null, count(*)
+from hr.employees
+group by job_id 
+union all
+select null, null, manager_id, count(*)
+from hr.employees
+group by manager_id
+union all
+select null, null, null, count(*)
+from hr.employees
+
+не используя функцию rollup, а используя набор запросов с обычным group by, объединенных посредством union all.
